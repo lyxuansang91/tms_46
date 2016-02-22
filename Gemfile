@@ -29,10 +29,16 @@ group :development, :test do
   gem "byebug"
   gem "factory_girl_rails"
   gem "factory_girl"
+  gem "rspec-rails", "~> 3.4"
 end
 
 group :development do
   gem "web-console", "~> 2.0"
   gem "spring"
+end
+
+group :test do
+  gem "capybara"
+  gem "guard-rspec"
 end
 
