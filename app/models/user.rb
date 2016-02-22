@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :activities, dependent: :destroy
   has_many :user_tasks, dependent: :destroy
   has_many :course_subject_tasks, through: :user_tasks, dependent: :destroy
+  validates :name, presence: true, length: {maximum: 100}
 
   accepts_nested_attributes_for :user_courses, allow_destroy: true
   accepts_nested_attributes_for :user_tasks, allow_destroy: true, reject_if:
