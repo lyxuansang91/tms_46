@@ -20,6 +20,10 @@ describe Course, type: :model do
     end
   end
 
+  context "check enum status" do
+    it {should define_enum_for(:status).with([:inactive, :active, :finished])}
+  end
+
   subject {course1}
 
   describe "associations" do
@@ -27,5 +31,10 @@ describe Course, type: :model do
     it {should have_many(:users).through(:user_courses)}
     it {should have_many(:course_subjects)}
     it {should have_many(:subjects).through(:course_subjects)}
+  end
+
+  describe "accept nested attributes for" do
+    it {should accept_nested_attributes_for(:user_courses)}
+    it {should accept_nested_attributes_for(:course_subjects)}
   end
 end
