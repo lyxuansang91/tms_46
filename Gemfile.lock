@@ -289,6 +289,7 @@ DEPENDENCIES
   mysql2 (~> 0.4.2)
   nested_form
   rails (= 4.2.5)
+  rspec
   rspec-collection_matchers
   rspec-rails (~> 3.4)
   sass-rails (~> 5.0)
