@@ -24,6 +24,7 @@ gem "sidekiq"
 gem "sinatra", require: false
 gem "letter_opener"
 gem "launchy"
+gem "pry-rails"
 
 group :development, :test do
   gem "byebug"

@@ -9,6 +9,7 @@ class Ability
     elsif controller_namespace == "Admin"
       cannot :read, :all
     else
+      can :read, Subject
       can :index, User, role: 0
       can :show, User do |u|
         u.trainee?

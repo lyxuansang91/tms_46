@@ -1,1 +1,1 @@
-FactoryGirl.create :subject
+FactoryGirl.create :course_active
