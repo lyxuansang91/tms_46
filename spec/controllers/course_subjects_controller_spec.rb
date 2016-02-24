@@ -34,6 +34,8 @@ describe CourseSubjectsController, type: :controller do
 
       get :show, {course_id: course.id, id: course_subject.id}
 
+      allow(CourseSubject).to receive(:find).and_return course_subject
+
       CourseSubject.stub(:find).and_return course_subject
 
       expect(CourseSubject.find(course_subject.id)).to eq course_subject
