@@ -6,6 +6,7 @@ describe UsersController, type: :controller do
 
   before do
     sign_in :user, user
+    allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
     allow(controller).to receive(:current_user).and_return user
   end
 
@@ -21,8 +22,9 @@ describe UsersController, type: :controller do
   describe "GET show" do
     it "check show" do
       get :show, id: user.id
-      user = double("user")
-      allow(User).to receive(:find) {user}
+      other_user = double("user")
+      allow(User).to receive(:find).and_return(other_user)
+      expect(User.find(user.id)).to eq(other_user)
       expect(response).to render_template :show
     end
   end
