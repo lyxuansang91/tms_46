@@ -1,5 +1,6 @@
 require "rails_helper"
 require "cancan/matchers"
+require "users_controller"
 
 describe UsersController, type: :controller do
   let(:user) {FactoryGirl.create :user}
