@@ -7,9 +7,7 @@ describe UserCoursesController, type: :controller do
 
   describe "GET /index" do
     it "renders user_course index template" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
 
       get :index, {course_id: course.id}
 
@@ -18,9 +16,7 @@ describe UserCoursesController, type: :controller do
     end
 
     it "check @users" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
 
       get :index, {course_id: course.id}
       user_course = course.user_courses.create user_id: user.id
@@ -29,9 +25,7 @@ describe UserCoursesController, type: :controller do
     end
 
     it "check content type" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :index, {course_id: course.id}
 
       expect(response.status).to eq(200)

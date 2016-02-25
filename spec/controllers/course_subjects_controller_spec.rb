@@ -17,10 +17,7 @@ describe CourseSubjectsController, type: :controller do
       course_subject: course_subject, task: task}
 
     it "renders course_subject show template" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
-
+      sign_in user
       get :show, {course_id: course.id, id: course_subject.id}
 
       expect(response).to render_template("course_subjects/show")
@@ -28,25 +25,17 @@ describe CourseSubjectsController, type: :controller do
     end
 
     it "check @course_subject_tasks" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
-
+      sign_in user
       get :show, {course_id: course.id, id: course_subject.id}
 
       allow(CourseSubject).to receive(:find).and_return course_subject
-
-      CourseSubject.stub(:find).and_return course_subject
-
       expect(CourseSubject.find(course_subject.id)).to eq course_subject
 
       expect(assigns(:course_subject_tasks)).to eq([course_subject_task])
     end
 
     it "check content type" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
 
       get :show, {course_id: course.id, id: course_subject.id}
 
