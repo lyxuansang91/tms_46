@@ -1,5 +1,6 @@
 require "rails_helper"
 require "cancan/matchers"
+require "courses_controller"
 
 describe CoursesController, type: :controller do
   let(:user) {FactoryGirl.create :user}
@@ -9,26 +10,20 @@ describe CoursesController, type: :controller do
   describe "GET /index" do
     let(:user_course) {FactoryGirl.create :user_course, user: user, course: course}
     it "renders course index template" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :index
       expect(response).to render_template("courses/index")
       expect(response).to render_template("layouts/application")
     end
 
     it "check @courses" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :index
       expect(assigns(:courses)).to eq([course])
     end
 
     it "check content type" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :index
       expect(response.status).to eq(200)
       expect(response.content_type).to eq "text/html"
@@ -48,26 +43,20 @@ describe CoursesController, type: :controller do
     let(:user_subject) {FactoryGirl.create :user_subject, course_subject: course_subject}
 
     it "renders course show template" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :show, {id: course.id}
       expect(response).to render_template("courses/show")
       expect(response).to render_template("layouts/application")
     end
 
     it "check @course_subjects" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :show, {id: course.id}
       expect(assigns(:course_subjects)).to eq([course_subject])
     end
 
     it "check content type" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :show, {id: course.id}
       expect(response.status).to eq(200)
       expect(response.content_type).to eq "text/html"

@@ -16,21 +16,17 @@ describe UserSubjectsController, type: :controller do
       course_subject: course_subject, task: task}
 
     it "check @user_subject" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
 
-      UserSubject.stub(:find).and_return user_subject
-      user_subject.stub(:update_attributes).and_return true
+      allow(UserSubject).to receive(:find).and_return user_subject
+      allow(user_subject).to receive(:update_attributes).and_return true
 
       put :update, id: user_subject.id, user_subject: {status: :finished}
       expect(response).to redirect_to(:back)
     end
 
     it "check content type" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       put :update, id: user_subject.id, user_subject: {status: :finished}
 
       expect(response.status).to eq(302)

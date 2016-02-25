@@ -6,9 +6,7 @@ describe StaticPagesController, type: :controller do
 
   describe "GET /root" do
     it "renders home template" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :home
       expect(response.status).to eq(200)
       expect(response.content_type).to eq "text/html"
@@ -17,9 +15,7 @@ describe StaticPagesController, type: :controller do
     end
 
     it "check content-type and status" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :home
       expect(response.status).to eq(200)
       expect(response.content_type).to eq "text/html"
@@ -34,9 +30,7 @@ describe StaticPagesController, type: :controller do
 
   describe "GET /about" do
     it "render about template" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :about
       expect(response.status).to eq(200)
       expect(response.content_type).to eq "text/html"
@@ -45,9 +39,7 @@ describe StaticPagesController, type: :controller do
     end
 
     it "check content type and status" do
-      sign_in :user, user
-      allow(request.env["warden"]).to receive(:authenticate!).and_return(user)
-      allow(controller).to receive(:current_user).and_return user
+      sign_in user
       get :home
       expect(response.status).to eq(200)
       expect(response.content_type).to eq "text/html"
